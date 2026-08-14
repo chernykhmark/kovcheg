@@ -109,7 +109,14 @@ async def cb_confirm(callback: CallbackQuery, bot: Bot):
     quantity = int(order["quantity"])
 
     try:
-        await bot.send_message(order["telegram_id"], texts.CLIENT_CONFIRMED)
+        # После отправки скрина клавиатура скрывается через ReplyKeyboardRemove.
+        # Явно возвращаем главное меню после решения по заказу, иначе Telegram
+        # продолжает держать клавиатуру скрытой у клиента.
+        await bot.send_message(
+            order["telegram_id"],
+            texts.CLIENT_CONFIRMED,
+            reply_markup=main_menu(),
+        )
         await bot.send_message(
             order["telegram_id"],
             texts.CLIENT_TICKETS_HEADER.format(count=quantity),

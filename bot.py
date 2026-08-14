@@ -9,7 +9,6 @@ from aiogram.client.session.aiohttp import AiohttpSession   # + добавить
 from config import settings
 from db.pool import init_pool, close_pool
 from middlewares import RoleMiddleware
-from services.scheduler import start_scheduler, stop_scheduler
 from handlers import start, purchase, payment, tickets, admin, faq
 
 logging.basicConfig(level=logging.INFO)
@@ -26,7 +25,6 @@ def register_routers(dp: Dispatcher) -> None:
 
 async def main() -> None:
     await init_pool()
-    start_scheduler()
 
     session = AiohttpSession(proxy="socks5://127.0.0.1:1080")   # + прокси
     bot = Bot(token=settings.BOT_TOKEN, session=session)        # изменено
@@ -42,7 +40,6 @@ async def main() -> None:
         await bot.delete_webhook(drop_pending_updates=True)
         await dp.start_polling(bot)
     finally:
-        stop_scheduler()
         await close_pool()
         await bot.session.close()
 

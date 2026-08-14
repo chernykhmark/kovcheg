@@ -1,21 +1,11 @@
 # keyboards/client.py
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove, WebAppInfo
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 
 import texts
-from config import settings
 
 
 def main_menu() -> ReplyKeyboardMarkup:
     keyboard = [[KeyboardButton(text=texts.BTN_BUY)]]
-    # Telegram открывает Web App только по HTTPS URL. Оставляем настройку
-    # необязательной, чтобы старый бот продолжал работать до деплоя лендинга.
-    if settings.WEB_APP_URL:
-        keyboard.append([
-            KeyboardButton(
-                text=texts.BTN_EVENT_PAGE,
-                web_app=WebAppInfo(url=settings.WEB_APP_URL),
-            )
-        ])
     keyboard.extend([
         [KeyboardButton(text=texts.BTN_MY_TICKETS)],
         [KeyboardButton(text=texts.BTN_ASK)],
