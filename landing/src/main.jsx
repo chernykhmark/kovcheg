@@ -49,6 +49,19 @@ function Header({ lang, setLang, t }) { return <header className="header"><a hre
 function App() {
   const [lang, setLang] = useState('ru'); const t = translations[lang]; const reduced = useReducedMotion()
   const icons = [Disc3, Volume2, Clock3]
+  useEffect(() => {
+    const webApp = window.Telegram?.WebApp
+    if (!webApp) return
+
+    webApp.ready()
+    webApp.expand()
+
+    // В новых клиентах Telegram разворачиваем Mini App на весь экран.
+    // В старых остаётся безопасный вариант — максимальная высота WebView.
+    if (webApp.isVersionAtLeast?.('8.0') && !webApp.isFullscreen) {
+      webApp.requestFullscreen()
+    }
+  }, [])
   return <><CanvasBackground /><div className="page" id="top"><Header {...{ lang, setLang, t }} />
     <main>
       <section className="hero section-shell"><motion.div initial="hidden" animate="show" transition={{ staggerChildren: .11 }} className="hero-content"><motion.p variants={reveal} className="eyebrow">{t.heroKicker}</motion.p><motion.h1 variants={reveal}>{eventConfig.name}</motion.h1><motion.p variants={reveal} className="event-meta">{eventConfig.displayDate} <i /> {eventConfig.venue}</motion.p><motion.p variants={reveal} className="hero-sub">{t.heroSub}</motion.p><motion.div variants={reveal}><Countdown labels={t.timerLabels} /></motion.div><motion.div variants={reveal}><BuyButton label={t.buy} /></motion.div></motion.div><a href="#vibe" className="scroll-cue"><span>{t.scroll}</span><ChevronDown size={20} /></a></section>
