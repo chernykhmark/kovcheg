@@ -55,7 +55,7 @@ async def _start_type_selection(message: Message, state: FSMContext):
             ticket_type_name=chosen["name"],
         )
         await state.set_state(PurchaseStates.entering_quantity)
-        await message.answer(texts.ENTER_QUANTITY, reply_markup=cancel_flow_menu())
+        await message.answer(texts.ENTER_QUANTITY, reply_markup=review_pending_menu())
         return
 
     await state.set_state(PurchaseStates.choosing_type)
@@ -96,11 +96,7 @@ async def ask_during_purchase(message: Message, state: FSMContext):
     await message.answer(texts.ASK_ENTER_QUESTION, reply_markup=main_menu())
 
 
-# --- "Отменить" на любом этапе до отправки скриншота ---
-@router.message(PurchaseStates.choosing_type, F.text == texts.BTN_CANCEL_FLOW)
-@router.message(PurchaseStates.entering_quantity, F.text == texts.BTN_CANCEL_FLOW)
-@router.message(PurchaseStates.entering_name, F.text == texts.BTN_CANCEL_FLOW)
-@router.message(PurchaseStates.entering_phone, F.text == texts.BTN_CANCEL_FLOW)
+# --- "Отменить" доступна только после создания заказа, до отправки скриншота ---
 @router.message(PurchaseStates.waiting_screenshot, F.text == texts.BTN_CANCEL_FLOW)
 async def cancel_purchase_flow(message: Message, state: FSMContext):
     data = await state.get_data()
@@ -128,7 +124,7 @@ async def choose_type(message: Message, state: FSMContext):
         return
     await state.update_data(ticket_type_id=chosen["id"], ticket_type_name=chosen["name"])
     await state.set_state(PurchaseStates.entering_quantity)
-    await message.answer(texts.ENTER_QUANTITY, reply_markup=cancel_flow_menu())
+    await message.answer(texts.ENTER_QUANTITY, reply_markup=review_pending_menu())
 
 
 # --- Ввод количества ---
@@ -136,15 +132,15 @@ async def choose_type(message: Message, state: FSMContext):
 async def enter_quantity(message: Message, state: FSMContext):
     text = (message.text or "").strip()
     if not text.isdigit():
-        await message.answer(texts.QUANTITY_INVALID, reply_markup=cancel_flow_menu())
+        await message.answer(texts.QUANTITY_INVALID)
         return
     qty = int(text)
     if qty < 1 or qty > 20:
-        await message.answer(texts.QUANTITY_INVALID, reply_markup=cancel_flow_menu())
+        await message.answer(texts.QUANTITY_INVALID)
         return
     await state.update_data(quantity=qty)
     await state.set_state(PurchaseStates.entering_name)
-    await message.answer(texts.ENTER_NAME, reply_markup=cancel_flow_menu())
+    await message.answer(texts.ENTER_NAME)
 
 
 # --- Ввод имени ---
@@ -152,11 +148,11 @@ async def enter_quantity(message: Message, state: FSMContext):
 async def enter_name(message: Message, state: FSMContext):
     name = (message.text or "").strip()
     if not name:
-        await message.answer(texts.NAME_INVALID, reply_markup=cancel_flow_menu())
+        await message.answer(texts.NAME_INVALID)
         return
     await state.update_data(buyer_name=name)
     await state.set_state(PurchaseStates.entering_phone)
-    await message.answer(texts.ENTER_PHONE, reply_markup=cancel_flow_menu())
+    await message.answer(texts.ENTER_PHONE)
 
 
 # --- Ввод телефона + создание заказа ---
@@ -164,7 +160,7 @@ async def enter_name(message: Message, state: FSMContext):
 async def enter_phone(message: Message, state: FSMContext):
     phone = normalize_phone(message.text or "")
     if not phone:
-        await message.answer(texts.PHONE_INVALID, reply_markup=cancel_flow_menu())
+        await message.answer(texts.PHONE_INVALID)
         return
 
     data = await state.get_data()

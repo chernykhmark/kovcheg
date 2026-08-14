@@ -36,7 +36,6 @@ def review_pending_menu() -> ReplyKeyboardRemove:
 def ticket_types_menu(ticket_types: list[dict]) -> ReplyKeyboardMarkup:
     """Выбор типа билета. Сейчас тип один, но клавиатура универсальна."""
     keyboard = [[KeyboardButton(text=t["name"])] for t in ticket_types]
-    keyboard.append([KeyboardButton(text=texts.BTN_CANCEL_FLOW)])
     return ReplyKeyboardMarkup(
         keyboard=keyboard,
         resize_keyboard=True,
