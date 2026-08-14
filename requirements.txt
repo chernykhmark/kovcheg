@@ -4,3 +4,4 @@ pydantic-settings
 reportlab
 openpyxl
 apscheduler
+aiohttp_socks

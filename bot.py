@@ -4,6 +4,7 @@ import logging
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.client.session.aiohttp import AiohttpSession   # + добавить
 
 from config import settings
 from db.pool import init_pool, close_pool
@@ -25,10 +26,11 @@ def register_routers(dp: Dispatcher) -> None:
 async def main() -> None:
     await init_pool()
 
-    bot = Bot(token=settings.BOT_TOKEN)
+    session = AiohttpSession(proxy="socks5://127.0.0.1:1080")   # + прокси
+    bot = Bot(token=settings.BOT_TOKEN, session=session)        # изменено
+
     dp = Dispatcher(storage=MemoryStorage())
 
-    # middleware ролей на сообщения и колбэки
     dp.message.middleware(RoleMiddleware())
     dp.callback_query.middleware(RoleMiddleware())
 
