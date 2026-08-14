@@ -1,0 +1,6 @@
+aiogram
+asyncpg
+pydantic-settings
+reportlab
+openpyxl
+apscheduler
