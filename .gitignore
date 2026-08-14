@@ -3,3 +3,6 @@
 .venv
 docs
 __pycache__
+bot.py
+venv
+.DS_Store

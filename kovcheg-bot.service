@@ -1,0 +1,16 @@
+[Unit]
+Description=Kovcheg Telegram bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=lev
+WorkingDirectory=/home/lev/kovcheg
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/home/lev/kovcheg/.venv/bin/python /home/lev/kovcheg/bot.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
