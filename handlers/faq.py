@@ -4,9 +4,9 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 import texts
+from config import settings
 from states import AskQuestionStates
 from keyboards.client import main_menu, faq_menu
-from db.queries import get_admin_telegram_id
 
 router = Router()
 
@@ -45,12 +45,6 @@ async def ask_own_receive(message: Message, state: FSMContext, bot: Bot):
 
     await state.clear()
 
-    admin_id = await get_admin_telegram_id()
-    if admin_id is None:
-        # Нет админа в БД — не теряем UX клиента.
-        await message.answer(texts.ASK_SENT, reply_markup=main_menu())
-        return
-
     from_user = message.from_user
     uname = f"@{from_user.username}" if from_user.username else "—"
     admin_text = texts.admin_new_question(
@@ -59,10 +53,12 @@ async def ask_own_receive(message: Message, state: FSMContext, bot: Bot):
         telegram_id=from_user.id,
         question=text,
     )
-    try:
-        await bot.send_message(admin_id, admin_text, parse_mode="HTML")
-    except Exception:
-        pass  # админ мог не начать диалог с ботом — вопрос все равно подтверждаем клиенту
+    for admin_id in settings.admin_ids:
+        try:
+            await bot.send_message(admin_id, admin_text, parse_mode="HTML")
+        except Exception:
+            # Недоступность одного чата не должна мешать доставке второму админу.
+            pass
 
     await message.answer(texts.ASK_SENT, reply_markup=main_menu())
 

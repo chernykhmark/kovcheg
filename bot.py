@@ -26,7 +26,8 @@ def register_routers(dp: Dispatcher) -> None:
 async def main() -> None:
     await init_pool()
 
-    session = AiohttpSession(proxy="socks5://127.0.0.1:1080")   # + прокси
+    #session = AiohttpSession(proxy="socks5://127.0.0.1:1080")   # + прокси
+    session = AiohttpSession()
     bot = Bot(token=settings.BOT_TOKEN, session=session)        # изменено
 
     dp = Dispatcher(storage=MemoryStorage())

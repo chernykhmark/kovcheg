@@ -37,8 +37,8 @@ MSK = ZoneInfo("Europe/Moscow")
 # Принимаем ТОЛЬКО фото. Документы (в т.ч. файлы-изображения) не принимаем.
 @router.message(F.photo | F.document)
 async def receive_screenshot(message: Message, state: FSMContext, bot: Bot):
-    # Из админ-чата ничего не обрабатываем как клиентский скрин.
-    if message.chat.id == settings.ADMIN_CHAT_ID:
+    # Из личных чатов администраторов ничего не обрабатываем как клиентский скрин.
+    if message.chat.id in settings.admin_ids:
         return
 
     active = await get_active_order(message.from_user.id)
@@ -82,18 +82,27 @@ async def receive_screenshot(message: Message, state: FSMContext, bot: Bot):
         quantity=order["quantity"],
         total_amount=int(order["total_amount"]),
     )
-    await bot.send_photo(
-        chat_id=settings.ADMIN_CHAT_ID,
-        photo=file_id,
-        caption=caption,
-        parse_mode="HTML",
-        reply_markup=order_review_kb(order["id"]),
-    )
+    for admin_id in settings.admin_ids:
+        try:
+            await bot.send_photo(
+                chat_id=admin_id,
+                photo=file_id,
+                caption=caption,
+                parse_mode="HTML",
+                reply_markup=order_review_kb(order["id"]),
+            )
+        except Exception:
+            # Недоступность одного чата не должна мешать доставке второму админу.
+            pass
 
 
 # --- Подтверждение заявки + генерация и выдача PDF ---
 @router.callback_query(F.data.startswith("confirm:"))
-async def cb_confirm(callback: CallbackQuery, bot: Bot):
+async def cb_confirm(callback: CallbackQuery, bot: Bot, role: str | None):
+    if role != "admin" or callback.message.chat.id not in settings.admin_ids:
+        await callback.answer("Это действие доступно только администраторам.", show_alert=True)
+        return
+
     order_id = int(callback.data.split(":", 1)[1])
 
     ok = await confirm_order(order_id)
@@ -162,7 +171,11 @@ async def cb_confirm(callback: CallbackQuery, bot: Bot):
 
 # --- Отклонение заявки: атомарный UPDATE + запрос причины через reply ---
 @router.callback_query(F.data.startswith("reject:"))
-async def cb_reject(callback: CallbackQuery):
+async def cb_reject(callback: CallbackQuery, role: str | None):
+    if role != "admin" or callback.message.chat.id not in settings.admin_ids:
+        await callback.answer("Это действие доступно только администраторам.", show_alert=True)
+        return
+
     order_id = int(callback.data.split(":", 1)[1])
 
     ok = await reject_order(order_id)
@@ -198,11 +211,14 @@ async def cb_reject(callback: CallbackQuery):
 
 # --- Причина отклонения: любой reply на сообщение заявки в админ-чате ---
 @router.message(
-    F.chat.id == settings.ADMIN_CHAT_ID,
+    F.chat.id.in_(settings.admin_ids),
     F.reply_to_message,
     F.text,
 )
-async def receive_reject_reason(message: Message, bot: Bot):
+async def receive_reject_reason(message: Message, bot: Bot, role: str | None):
+    if role != "admin" or message.chat.id not in settings.admin_ids:
+        return
+
     reply = message.reply_to_message
     pending = await get_pending_reject_order_by_message(
         chat_id=message.chat.id,
