@@ -6,8 +6,8 @@ export const eventConfig = {
   venue: 'LovelyLoft — Москва, Большая Семёновская ул., 42, стр. 15',
   telegramBotUrl: 'https://t.me/kovchegpartybot',
   socials: [
-    { label: 'MAX', url: 'https://max.ru/ВАШ_АККАУНТ', icon: 'message' },
-    { label: 'Telegram', url: 'https://t.me/kovchegpartybot', icon: 'telegram' },
-    { label: 'WhatsApp', url: 'https://wa.me/79060070767', icon: 'message' },
+    { label: 'MAX', url: 'https://iimax.ru/Kovcheg', icon: 'message' },
+    { label: 'Telegram', url: 'https://t.me/+zsebpKDOkHlhNjky', icon: 'telegram' },
+    { label: 'WhatsApp', url: 'https://chat.whatsapp.com/K5UmQw32CPzAn7NY3nUnID', icon: 'message' },
   ],
 }
