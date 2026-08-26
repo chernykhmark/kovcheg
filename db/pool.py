@@ -9,7 +9,13 @@ _pool: asyncpg.Pool | None = None
 async def init_pool() -> asyncpg.Pool:
     global _pool
     if _pool is None:
-        _pool = await asyncpg.create_pool(dsn=settings.DATABASE_URL)
+        _pool = await asyncpg.create_pool(
+            dsn=settings.DATABASE_URL,
+            min_size=1,
+            max_size=5,
+            ssl="prefer",
+            timeout=10,
+        )
     return _pool
 
 

@@ -1,6 +1,6 @@
 export const translations = {
   ru: {
-    nav: { vibe: 'Вайб', lineup: 'Лайнап', program: 'Программа' },
+    nav: { vibe: 'Вайб', program: 'Программа', lineup: 'Лайнап' },
     heroKicker: 'ОДНА НОЧЬ · ТРИ ТАНЦПОЛА',
     heroSub: 'Новый год начинается там, где заканчиваются границы.',
     buy: 'Купить билет в Telegram', buyShort: 'Купить билет',
@@ -16,6 +16,7 @@ export const translations = {
     ],
     lineupEyebrow: 'LINE-UP', lineupTitle: 'Имена пока в тени. Звук — уже здесь.',
     newcomerNotice: 'Новички до 30 дней в сообществе — бесплатно, без предварительной регистрации.',
+    socialJoin: 'Присоединяйся к нам',
     programEyebrow: 'ТАЙМИНГ', programTitle: 'Сценарий идеальной ночи.',
     kidsRoomNotice: 'Всю ночь работает детская комната! Получить доступ можно у координатора — Сергей +79060070767.',
     finalEyebrow: 'YOUR NEXT YEAR STARTS HERE', finalTitle: 'Встречаем 2027 на максимальной громкости.',
@@ -23,7 +24,7 @@ export const translations = {
     follow: 'Следите за новостями', copyright: 'Все права на ночь защищены.',
   },
   en: {
-    nav: { vibe: 'Vibe', lineup: 'Line-up', program: 'Schedule' },
+    nav: { vibe: 'Vibe', program: 'Schedule', lineup: 'Line-up' },
     heroKicker: 'ONE NIGHT · THREE DANCE FLOORS',
     heroSub: 'The new year starts where limits end.',
     buy: 'Buy ticket in Telegram', buyShort: 'Buy ticket',
@@ -39,6 +40,7 @@ export const translations = {
     ],
     lineupEyebrow: 'LINE-UP', lineupTitle: 'Names are still in the shadows. The sound is already here.',
     newcomerNotice: 'New community members of up to 30 days enter free, with no advance registration.',
+    socialJoin: 'Join us',
     programEyebrow: 'SCHEDULE', programTitle: 'The script for a perfect night.',
     kidsRoomNotice: 'The kids’ room is open all night! Ask the coordinator for access — Sergey +79060070767.',
     finalEyebrow: 'YOUR NEXT YEAR STARTS HERE', finalTitle: 'Welcome 2027 at full volume.',

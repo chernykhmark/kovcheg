@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS broadcasts (
 
 -- Событие (одна строка). Заменить данными реального мероприятия.
 INSERT INTO events (name, date, location, description, last_ticket_no)
-SELECT 'Название мероприятия', '31 декабря 2025, 19:00', 'Москва, ул. Примерная, 1',
+SELECT 'KOVCHEG NEW YEAR 2027', '31 декабря 2026, 20:00', 'LovelyLoft — Москва, Большая Семёновская ул., 42, стр. 15',
        'Описание мероприятия', 0
 WHERE NOT EXISTS (SELECT 1 FROM events);
 

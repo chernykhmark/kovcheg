@@ -76,6 +76,51 @@ def _draw_centered(c: canvas.Canvas, text: str, font: str, size: float,
     c.drawCentredString(page_width / 2, y, text)
 
 
+def _wrap_text(text: str, font: str, size: float,
+               max_width: float, max_lines: int) -> list[str]:
+    """Wrap text by words, using an ellipsis only when all lines are exhausted."""
+    words = str(text).strip().split()
+    if not words:
+        return [""]
+
+    lines: list[str] = []
+    current = ""
+    while words:
+        word = words.pop(0)
+        candidate = f"{current} {word}".strip()
+        if stringWidth(candidate, font, size) <= max_width:
+            current = candidate
+            continue
+
+        if current:
+            lines.append(current)
+            current = word
+        else:
+            lines.append(_fit_text(word, font, size, max_width))
+
+        if len(lines) == max_lines:
+            remaining = " ".join([current, *words]).strip()
+            lines[-1] = _fit_text(f"{lines[-1]} {remaining}", font, size, max_width)
+            return lines
+
+    if current:
+        lines.append(current)
+
+    if len(lines) > max_lines:
+        overflow = " ".join(lines[max_lines - 1:])
+        lines = lines[:max_lines - 1]
+        lines.append(_fit_text(overflow, font, size, max_width))
+    return lines
+
+
+def _draw_centered_lines(c: canvas.Canvas, lines: list[str], font: str,
+                         size: float, first_y: float, leading: float,
+                         page_width: float) -> None:
+    c.setFont(font, size)
+    for index, line in enumerate(lines):
+        c.drawCentredString(page_width / 2, first_y - index * leading, line)
+
+
 def generate_ticket_pdf(
     event_name: str,
     event_date: str,
@@ -122,16 +167,24 @@ def generate_ticket_pdf(
     c.setFont(font_bold, 7)
     c.drawRightString(page_width - padding, page_height - 18 * mm, "ДЛЯ 1 ВХОДА")
 
-    y = page_height - 38 * mm
+    # Long event details are wrapped instead of being truncated to one line.
     c.setFillColor(HexColor("#F7F8FF"))
-    _draw_centered(c, event_name, font_bold, 16, y, page_width, content_width)
-    y -= 12 * mm
-    c.setFillColor(HexColor("#C8C4D4"))
-    _draw_centered(c, event_date, font_regular, 8.8, y, page_width, content_width)
-    y -= 6.5 * mm
-    _draw_centered(c, event_location, font_regular, 8.8, y, page_width, content_width)
+    event_lines = _wrap_text(event_name, font_bold, 14, content_width, 2)
+    _draw_centered_lines(
+        c, event_lines, font_bold, 14,
+        page_height - 34 * mm, 6 * mm, page_width,
+    )
 
-    y -= 9 * mm
+    c.setFillColor(HexColor("#C8C4D4"))
+    _draw_centered(c, event_date, font_regular, 8.5,
+                   page_height - 47 * mm, page_width, content_width)
+    location_lines = _wrap_text(event_location, font_regular, 8, content_width, 2)
+    _draw_centered_lines(
+        c, location_lines, font_regular, 8,
+        page_height - 53 * mm, 4.5 * mm, page_width,
+    )
+
+    y = page_height - 67.5 * mm
     c.setFillColor(HexColor("#00E5FF"))
     _draw_centered(c, ticket_type_name.upper(), font_bold, 8, y, page_width, content_width)
     y -= 9 * mm
