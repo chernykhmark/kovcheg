@@ -63,13 +63,13 @@ def order_created(ticket_type_name: str, quantity: int,
         f"Количество: {quantity}\n"
         f"Сумма к оплате: <b>{total_amount} ₽</b>\n\n"
         f"Переведите точную сумму <b>одним платежом</b>\n"
-        f"💳 Оплата только по номеру карты\n"
+        f"💳 Оплата только по номеру карты\n\n"
         f"(нажмите на номер, чтобы скопировать):\n\n"
         f"<code>{sbp_card}</code>\n\n"
         #f"<code>{sbp_phone}</code>\n\n"
         f"{sbp_name}\n\n"
         #f"{sbp_bank}\n\n"
-        f"ПРИШЛИТЕ СКРИНШОТ ОПТАТЫ В ЭТОТ ЧАТ\n"
+        f"ПРИШЛИТЕ СКРИНШОТ ОПЛАТЫ В ЭТОТ ЧАТ\n"
 
 
     )
