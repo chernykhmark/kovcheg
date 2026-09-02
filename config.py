@@ -28,6 +28,8 @@ class Settings(BaseSettings):
     SBP_NAME: str
     SBP_BANK: str
     TICKET_PRICE: int
+    # Необязательный SOCKS/HTTP-прокси для подключения к Telegram API.
+    PROXY_URL: str | None = None
     # HTTPS-адрес опубликованного лендинга. Если не задан, кнопка Mini App скрыта.
     WEB_APP_URL: str | None = None
 
