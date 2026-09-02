@@ -1,5 +1,6 @@
 # handlers/payment.py
 from datetime import datetime
+import logging
 from zoneinfo import ZoneInfo
 
 from aiogram import Router, F, Bot
@@ -29,6 +30,7 @@ from db.queries import (
 )
 
 router = Router()
+logger = logging.getLogger(__name__)
 
 MSK = ZoneInfo("Europe/Moscow")
 
@@ -93,7 +95,14 @@ async def receive_screenshot(message: Message, state: FSMContext, bot: Bot):
             )
         except Exception:
             # Недоступность одного чата не должна мешать доставке второму админу.
-            pass
+            # Логируем ошибку, чтобы не терять случаи, когда администратор
+            # заблокировал бота или ещё не начал с ним диалог.
+            logger.warning(
+                "Не удалось отправить заявку %s администратору %s",
+                order_id,
+                admin_id,
+                exc_info=True,
+            )
 
 
 # --- Подтверждение заявки + генерация и выдача PDF ---

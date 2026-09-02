@@ -1,4 +1,6 @@
 # handlers/faq.py
+import logging
+
 from aiogram import Router, F, Bot
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
@@ -9,6 +11,7 @@ from states import AskQuestionStates
 from keyboards.client import main_menu, faq_menu
 
 router = Router()
+logger = logging.getLogger(__name__)
 
 
 # --- Открытие FAQ-подменю (кнопка «Задать вопрос») ---
@@ -58,7 +61,11 @@ async def ask_own_receive(message: Message, state: FSMContext, bot: Bot):
             await bot.send_message(admin_id, admin_text, parse_mode="HTML")
         except Exception:
             # Недоступность одного чата не должна мешать доставке второму админу.
-            pass
+            logger.warning(
+                "Не удалось отправить вопрос администратору %s",
+                admin_id,
+                exc_info=True,
+            )
 
     await message.answer(texts.ASK_SENT, reply_markup=main_menu())
 
