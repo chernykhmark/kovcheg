@@ -1,0 +1,6 @@
+.ticket-promo{padding:34px 0 22px}
+.ticket-promo-box{max-width:900px;padding:clamp(30px,6vw,58px) clamp(22px,6vw,64px);border:1px solid rgba(255,46,159,.45);border-radius:22px;background:radial-gradient(circle at 90% 15%,rgba(255,46,159,.28),transparent 34%),radial-gradient(circle at 8% 90%,rgba(0,229,255,.18),transparent 32%),rgba(18,12,32,.72);box-shadow:0 0 55px rgba(255,46,159,.16),inset 0 1px rgba(255,255,255,.14);backdrop-filter:blur(12px)}
+.ticket-promo p,.ticket-promo strong,.ticket-promo span{display:block}
+.ticket-promo p{color:#00e5ff;font-family:"Arial Black",Impact,Inter,sans-serif;font-size:clamp(2.35rem,8vw,5.4rem);line-height:.9;letter-spacing:-.06em;margin:0;text-shadow:0 0 24px rgba(0,229,255,.35)}
+.ticket-promo strong{margin-top:20px;font-size:clamp(1.15rem,3vw,1.65rem);line-height:1.15}
+.ticket-promo span{margin-top:7px;color:#f8a6d2;font-size:clamp(1rem,2.5vw,1.22rem);font-weight:700}
