@@ -4,5 +4,6 @@
 .ticket-promo p{color:#00e5ff;font-family:"Arial Black",Impact,Inter,sans-serif;font-size:clamp(2.35rem,8vw,5.4rem);line-height:.9;letter-spacing:-.06em;margin:0;text-shadow:0 0 24px rgba(0,229,255,.35)}
 .ticket-promo strong{margin-top:20px;font-size:clamp(1.15rem,3vw,1.65rem);line-height:1.15}
 .ticket-promo span{margin-top:7px;color:#f8a6d2;font-size:clamp(1rem,2.5vw,1.22rem);font-weight:700}
+.hero-ticket-promo{padding:10px 0 0}.hero-ticket-promo .ticket-promo-box{max-width:425px;padding:17px 18px;border-radius:14px}.hero-ticket-promo p{font-size:clamp(1.5rem,5vw,2.15rem)}.hero-ticket-promo strong{margin-top:9px;font-size:clamp(.92rem,2.5vw,1.1rem)}.hero-ticket-promo span{margin-top:4px;font-size:.85rem}
 .age-badge{margin-left:auto;padding:8px 13px;border:2px solid #ff2e9f;border-radius:10px;color:#fff;font-size:1.05rem;font-weight:900;letter-spacing:.06em;line-height:1;background:linear-gradient(135deg,rgba(255,46,159,.8),rgba(123,47,255,.72));box-shadow:0 0 24px rgba(255,46,159,.7),inset 0 1px rgba(255,255,255,.35);text-shadow:0 1px 4px rgba(0,0,0,.45)}
 .admission-rules{max-width:760px;margin:6px 0 0;white-space:pre-line;color:#918d9e;font-size:.64rem;line-height:1.55;text-align:center}

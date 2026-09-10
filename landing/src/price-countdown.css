@@ -1,0 +1,12 @@
+.price-countdown > p {
+  margin: 20px 0 8px;
+  color: #f5f6ff;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.price-countdown .countdown {
+  margin: 0 0 28px;
+}

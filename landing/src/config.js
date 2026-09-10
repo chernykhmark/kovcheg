@@ -2,6 +2,7 @@
 export const eventConfig = {
   name: 'NEW YEAR RAVE 2027',
   date: '2026-12-31T20:00:00+03:00',
+  priceIncreaseDate: '2026-09-15T00:00:00+03:00',
   displayDate: '31 декабря 2026',
   venue: 'LovelyLoft — Москва, Большая Семёновская ул., 42, стр. 15',
   telegramBotUrl: 'https://t.me/kovchegpartybot',
