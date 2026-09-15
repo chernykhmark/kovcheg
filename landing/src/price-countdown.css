@@ -10,3 +10,12 @@
 .price-countdown .countdown {
   margin: 0 0 28px;
 }
+
+.hero-title-tail {
+  white-space: nowrap;
+}
+
+.hero-year {
+  color: #ff2e9f;
+  text-shadow: 0 0 24px rgba(255, 46, 159, .7);
+}
