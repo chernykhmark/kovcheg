@@ -1,0 +1,50 @@
+.table-booking {
+  padding-bottom: 40px;
+}
+
+.table-booking-grid {
+  display: grid;
+  gap: 22px;
+  align-items: center;
+}
+
+.table-booking-copy {
+  padding: clamp(25px, 5vw, 50px);
+  border: 1px solid rgba(255, 46, 159, .38);
+  border-radius: 20px;
+  background: radial-gradient(circle at 0 0, rgba(255, 46, 159, .18), transparent 48%), rgba(18, 12, 32, .68);
+  box-shadow: 0 0 48px rgba(255, 46, 159, .12), inset 0 1px rgba(255, 255, 255, .1);
+}
+
+.table-booking-copy h2 {
+  font-size: clamp(2rem, 6vw, 4rem);
+}
+
+.table-booking-copy p {
+  margin: 22px 0 7px;
+  color: #c9c5d3;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+}
+
+.table-booking-copy a {
+  color: #ff2e9f;
+  font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+  font-weight: 900;
+  text-decoration: none;
+  text-shadow: 0 0 16px rgba(255, 46, 159, .5);
+}
+
+.table-booking-image {
+  display: block;
+  width: min(100%, 500px);
+  margin: auto;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 20px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .4);
+}
+
+@media (min-width: 800px) {
+  .table-booking-grid {
+    grid-template-columns: 1fr minmax(300px, .75fr);
+  }
+}
