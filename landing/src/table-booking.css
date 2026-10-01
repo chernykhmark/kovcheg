@@ -34,6 +34,20 @@
   text-shadow: 0 0 16px rgba(255, 46, 159, .5);
 }
 
+.table-booking-copy .table-booking-telegram {
+  display: block;
+  width: fit-content;
+  margin-top: 16px;
+  color: #f5f6ff;
+  font-size: 1rem;
+  font-weight: 800;
+  text-shadow: none;
+}
+
+.table-booking-copy .table-booking-telegram:hover {
+  color: #00e5ff;
+}
+
 .table-booking-image {
   display: block;
   width: min(100%, 500px);
