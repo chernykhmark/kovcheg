@@ -181,7 +181,7 @@ def broadcast_result(recipients_count: int, delivered_count: int) -> str:
 
 # --- FAQ / Задать свой вопрос (Этап 8) ---
 ASK_ENTER_QUESTION = (
-    "Напишите ваш вопрос одним сообщением — мы передадим его администратору."
+    "Напишите ваш вопрос одним сообщением — мы передадим его администратору. Убедитесь что у вас в профиле указан @nickname чтобы мы смогли вам ответить"
 )
 ASK_SENT = "✅ Вопрос отправлен. Администратор свяжется с вами."
 
@@ -192,6 +192,5 @@ def admin_new_question(buyer_name: str, username: str,
         "❓ <b>Новый вопрос от клиента</b>\n\n"
         f"Имя: {buyer_name}\n"
         f"Username: {username}\n"
-        f"Telegram ID: {telegram_id}\n\n"
         f"Вопрос:\n{question}"
     )
