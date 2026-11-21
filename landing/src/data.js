@@ -1,8 +1,17 @@
-// Замените заглушки на анонсированных артистов и реальную программу.
 export const artists = [
-  { alias: 'NØVA', genre: 'Melodic Techno', time: '22:30', accent: 'pink' },
-  { alias: 'POLARIS', genre: 'Progressive House', time: '00:30', accent: 'cyan' },
-  { alias: 'KRYPTA', genre: 'Peak Time Techno', time: '02:00', accent: 'violet' },
+  { alias: 'Tony Magic', genre: 'Trance', time: '00:00', accent: 'pink' },
+  { alias: 'Free-K', time: '00:00', accent: 'cyan' },
+  { alias: 'IndiGo', genre: 'Pop', time: '00:00', accent: 'violet' },
+  { alias: 'PERF b2b IndiGo', genre: 'Melodic Techno', time: '01:00', accent: 'blue' },
+  { alias: 'Anub', time: '01:00', accent: 'pink' },
+  { alias: 'Атлетика Звука', genre: 'Drum & Bass Мейнстрим', time: '02:00', accent: 'cyan' },
+  { alias: 'SanchesBeat', time: '02:00', accent: 'violet' },
+  { alias: 'TashaTurn', genre: 'Indie Dance', time: '02:00', accent: 'blue' },
+  { alias: 'SubVRT', genre: 'Drum & Bass', time: '03:00', accent: 'pink' },
+  { alias: 'Devika', time: '03:00', accent: 'cyan' },
+  { alias: 'Pantera', genre: 'Pop', time: '03:00', accent: 'violet' },
+  { alias: 'SanchesBeat', genre: 'Psy', time: '04:00', accent: 'blue' },
+  { alias: 'Pantera', genre: 'Bass, Tech', time: '04:00', accent: 'pink' },
 ]
 
 export const program = [
